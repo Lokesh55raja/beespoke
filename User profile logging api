@@ -1,0 +1,25 @@
+# Sample Python code using Flask for API implementation
+
+from flask import Flask, request, jsonify
+from pymongo import MongoClient
+
+app = Flask(__name__)
+client = MongoClient("mongodb+srv://username:password@cluster.mongodb.net/dbname?retryWrites=true&w=majority")
+
+db = client["mango_database"]
+user_creds = db["user_creds"]
+
+@app.route('/user_profile', methods=['POST'])
+def user_profile():
+    data = request.json
+
+    # Check for duplicate username
+    if user_creds.find_one({"username": data["username"]}):
+        return jsonify({"message": "Username already exists"}), 400
+
+    # Insert user profile into the database
+    user_creds.insert_one(data)
+    return jsonify({"message": "User profile created successfully"}), 201
+
+if __name__ == '__main__':
+    app.run(debug=True)
