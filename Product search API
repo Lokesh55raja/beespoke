@@ -3,7 +3,7 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 
-app = Flask(beespoke_ai)
+app = Flask("beespoke_ai")
 client = MongoClient("mongodb+srv://username:password@cluster.mongodb.net/dbname?retryWrites=true&w=majority")
 
 db = client["fashion_app_database"]
