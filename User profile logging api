@@ -1,4 +1,4 @@
-# Sample Python code using Flask for API implementation
+# Python code using Flask for API implementation
 
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
